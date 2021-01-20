@@ -1,0 +1,122 @@
+#-----Return Result-----
+#For "what" question
+sp {propose*return-result-what
+   (<s> ^name Question-Asker-Agent
+        ^status answer-what)
+-->
+   (<s> ^operator <o> +)
+   (<s> ^info <structure>)
+   (<o> ^name return-result-what)
+}
+
+sp {apply*return-result-what
+   (<s> ^name Question-Asker-Agent
+        ^operator <o>
+        ^counter <old-count>
+        ^smem.result.retrieved.isa <result>
+        ^status <old-status>
+        ^info <structure>)
+   (<o> ^name return-result-what)
+-->
+   (<s> ^counter (+ 1 <old-count>)
+                 <old-count> -)
+   (<s> ^status more
+                <old-status> -)
+   (<structure> ^added isa)
+   (write (crlf) <result>)
+   (write (crlf) ||)
+}
+
+#For "where" question
+sp {propose*return-result-where
+   (<s> ^name Question-Asker-Agent
+        ^status answer-where)
+-->
+   (<s> ^operator <o> +)
+   (<s> ^info <structure>)
+   (<o> ^name return-result-where)
+}
+
+sp {apply*return-result-where
+   (<s> ^name Question-Asker-Agent
+        ^operator <o>
+        ^counter <old-count>
+        ^smem.result.retrieved.officeLocation <result>
+        ^status <old-status>
+        ^info <structure>)
+   (<o> ^name return-result-where)
+-->
+   (<s> ^counter (+ 1 <old-count>)
+                 <old-count> -)
+   (<s> ^status more
+                <old-status> -)
+   (<structure> ^added officeLocation)
+   (write (crlf) <result>)
+   (write (crlf) ||)
+}
+
+#For "who" question
+sp {propose*return-result-who
+   (<s> ^name Question-Asker-Agent
+        ^status answer-who)
+-->
+   (<s> ^operator <o> +)
+   (<s> ^info <structure>)
+   (<o> ^name return-result-who)
+}
+
+sp {apply*return-result-who
+   (<s> ^name Question-Asker-Agent
+        ^operator <o>
+        ^counter <old-count>
+        ^smem.result.retrieved.fullName <result>
+        ^status <old-status>
+        ^info <structure>)
+   (<o> ^name return-result-who)
+-->
+   (<s> ^counter (+ 1 <old-count>)
+                 <old-count> -)
+   (<s> ^status more
+                <old-status> -)
+   (<structure> ^added fullName)
+   (write (crlf) <result>)
+   (write (crlf) ||)
+}
+
+# For retrieving more info
+sp {propose*return-adj-info
+   (<s> ^name Question-Asker-Agent
+        ^status retrieve-adj-info)
+-->
+   (<s> ^operator <o> +)
+   (<s> ^info <structure>)
+   (<o> ^name return-adj-info)
+}
+
+sp {apply*return-adj-info
+   (<s> ^name Question-Asker-Agent
+        ^operator <o>
+        ^counter <old-count>
+        ^smem.result.retrieved.krfID <result>
+        ^status <old-status>
+        ^info <structure>)
+   (<o> ^name return-adj-info)
+-->
+   (<s> ^counter (+ 1 <old-count>)
+                 <old-count> -)
+   (<s> ^status more
+                <old-status> -)
+   (<structure> ^added krfID)
+   (write (crlf) <result>)
+   (write (crlf) ||)
+}
+
+#-----Return other info-----
+sp {propose*return-more-info
+   (<s> ^name Question-Asker-Agent
+        ^status more
+        ^smem.result.retrieved.<link> <subject>)
+   (<s> ^info.added {<data> <> <link>})
+-->
+   (write (crlf) <link> | | <subject>)
+}

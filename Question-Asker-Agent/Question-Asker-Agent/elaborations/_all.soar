@@ -1,0 +1,172 @@
+sp {elaborate*state*name
+   (state <s> ^superstate.operator.name <name>)
+-->
+   (<s> ^name <name>)
+}
+
+sp {elaborate*state*top-state
+   (state <s> ^superstate.top-state <ts>)
+-->
+   (<s> ^top-state <ts>)
+}
+
+#-----List of question proposals-----
+# First question ("what")
+sp {propose*first-question
+   (<s> ^name Question-Asker-Agent
+        ^counter 1
+        ^status ask)
+-->
+   (<s> ^question InstructorTBA)
+   (<s> ^operator <o> +)
+   (<o> ^name answer-what)
+}
+
+# Second question ("what")
+sp {propose*second-question
+   (<s> ^name Question-Asker-Agent
+        ^counter 2
+        ^status ask)
+-->
+   (<s> ^question BrennaArgall)
+   (<s> ^operator <o> +)
+   (<o> ^name answer-what)
+}
+
+# Third question ("where")
+sp {propose*third-question
+   (<s> ^name Question-Asker-Agent
+        ^counter 3
+        ^status ask)
+-->
+   (<s> ^question BrennaArgall)
+   (<s> ^operator <o> +)
+   (<o> ^name answer-where)
+}
+
+# Fourth question ("where")
+sp {propose*fourth-question
+   (<s> ^name Question-Asker-Agent
+        ^counter 4
+        ^status ask)
+-->
+   (<s> ^question YanChen)
+   (<s> ^operator <o> +)
+   (<o> ^name answer-where)
+}
+
+# Fifth question ("who")
+sp {propose*ninth-question
+   (<s> ^name Question-Asker-Agent
+        ^counter 5
+        ^status ask)
+-->
+   (<s> ^question CSResearchFaculty)
+   (<s> ^question-link isa)
+   (<s> ^operator <o> +)
+   (<o> ^name answer-who)
+}
+
+# Sixth question ("who")
+sp {propose*tenth-question
+   (<s> ^name Question-Asker-Agent
+        ^counter 6
+        ^status ask)
+-->
+   (<s> ^question 8474671256)
+   (<s> ^question-link phoneNumberOf)
+   (<s> ^operator <o> +)
+   (<o> ^name answer-who)
+}
+
+#Extra question (retrieve more info)
+sp {propose*eleventh-question
+   (<s> ^name Question-Asker-Agent
+        ^counter 7
+        ^status ask)
+-->
+   (<s> ^question NUPeopleLanguageInfoMt)
+   (<s> ^operator <o> +)
+   (<o> ^name retrieve-adj-info)
+}
+
+
+#-----5 types of question answerers-----
+#Answer "what" question
+sp {apply*answer-what
+   (<s> ^name Question-Asker-Agent
+        ^operator <o>
+        ^smem.command <cmd>
+        ^question <subject>
+        ^status <old-status>)
+   (<o> ^name answer-what)
+-->
+   (<cmd> ^query <cue>)
+   (<cue> ^krfID <subject>)
+   (<s> ^status answer-what
+                <old-status> -)
+}
+
+#Answer "where" question
+sp {apply*answer-where
+   (<s> ^name Question-Asker-Agent
+        ^operator <o>
+        ^smem.command <cmd>
+        ^question <subject>
+        ^status <old-status>)
+   (<o> ^name answer-where)
+-->
+   (<cmd> ^query <cue>)
+   (<cue> ^krfID <subject>)
+   (<s> ^status answer-where
+                <old-status> -)
+}
+
+#Answer "who" question
+sp {apply*answer-who
+   (<s> ^name Question-Asker-Agent
+        ^operator <o>
+        ^smem.command <cmd>
+        ^question <subject>
+        ^question-link <link>
+        ^status <old-status>)
+   (<o> ^name answer-who)
+-->
+   (<cmd> ^query <cue>)
+   (<cue> ^<link> <subject>)
+   (<s> ^status answer-who
+                <old-status> -)
+}
+
+#Retrieve adjacent info
+sp {apply*retrieve-adj-info
+   (<s> ^name Question-Asker-Agent
+        ^operator <o>
+        ^smem.command <cmd>
+        ^question <subject>
+        ^status <old-status>)
+   (<o> ^name retrieve-adj-info)
+-->
+   (<cmd> ^query <cue>)
+   (<cue> ^in-microtheory <subject>)
+   (<s> ^status retrieve-adj-info
+                <old-status> -)
+}
+
+#-----END PROGRAM-----
+sp {propose*end
+   (<s> ^name Question-Asker-Agent
+        ^counter > 7
+        ^status ask)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name end)
+}
+
+sp {apply*end
+   (<s> ^name Question-Asker-Agent
+        ^operator <o>)
+   (<o> ^name end)
+-->
+   (halt)
+}

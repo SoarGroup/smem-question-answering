@@ -1,0 +1,41 @@
+#-----Reset Query and Result-----
+sp {propose*reset-query-result
+   (<s> ^name Question-Asker-Agent
+        ^status reset)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name reset-query-result)
+}
+
+sp {apply*reset-query-result
+   (<s> ^name Question-Asker-Agent
+        ^operator <o>
+        ^smem.command <com>
+        ^smem <smem>
+        ^status <old-status>)
+   (<o> ^name reset-query-result)
+   (<com> ^query <old-query>)
+-->
+   (<com> ^query <old-query> -)
+   (<s> ^status ask
+                <old-status> -)
+}
+
+#-----Reset history structure at topstate-----
+sp {propose*reset-structure
+   (<s> ^name Question-Asker-Agent
+        ^status more)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name reset-structure)
+}
+
+sp {apply*reset-structure
+   (<s> ^name Question-Asker-Agent
+        ^status <old-status>
+        ^operator <o>)
+   (<o> ^name reset-structure)
+-->
+   (<s> ^status reset
+                <old-status> -)
+}

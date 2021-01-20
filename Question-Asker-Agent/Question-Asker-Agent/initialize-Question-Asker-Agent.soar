@@ -1,0 +1,15 @@
+sp {propose*initialize-Question-Asker-Agent
+   (state <s> ^superstate nil
+             -^name)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name initialize-QAA)
+}
+
+sp {apply*initialize-Question-Asker-Agent
+   (state <s> ^operator.name initialize-QAA)
+-->
+   (<s> ^name Question-Asker-Agent
+        ^counter 1
+        ^status ask)
+}

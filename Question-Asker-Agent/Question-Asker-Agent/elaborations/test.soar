@@ -1,0 +1,20 @@
+sp {propose*retrieval
+   (state <s> ^name Question-Asker-Agent
+              ^smem.command <cmd>
+              ^counter 0)
+ #  (<cmd> ^retrieve)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieval)
+}
+
+sp {apply*retrieval
+   (state <s> ^operator <op>
+              ^smem.command <cmd>)
+   (<op> ^name retrieval)
+-->
+   (<cmd> ^query <cue>)
+   (<cue> ^krfID PeopleForSocialModelingMt)
+   (write <cue>)
+   (write |working|)
+}
